@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+  # You may wish to disable always updating cookbooks in CI or other testing environments.
+  # For example:
+  #   always_update_cookbooks: <%= !ENV['CI'] %>
+  always_update_cookbooks: false
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: vm-01
+    driver:
+      box: bento/ubuntu-14.04
+      vm_hostname: "kitchen-vm-01"
+      network:
+        - ["private_network", { ip: "192.168.10.120" }]
+
+suites:
+  - name: kitchen
+    run_list:
+#      - recipe[netdata::default]
+      - recipe[netdata::service-setup]
+    verifier:
+      inspec_tests:
+        - test/smoke/default
+    attributes:

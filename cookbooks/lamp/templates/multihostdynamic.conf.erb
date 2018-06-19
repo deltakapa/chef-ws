@@ -1,0 +1,18 @@
+<VirtualHost *:<%= @port %>>
+        ServerAdmin <%= @serveradmin %>
+        ServerName <%= node['hostname'] %>
+        DocumentRoot <%= @document_root %>/public_html
+        
+	ErrorLog /var/log/apache2/error.log
+	LogLevel warn
+	CustomLog /var/log/apache2/access.log combined
+	ServerSignature Off
+        
+	<Directory <%= @document_root %>/public_html>
+                Require all granted
+        </Directory>
+	
+	AddType application/x-httpd-php .php
+	AddType application/x-httpd-php-source .phps
+	DirectoryIndex index.php index.html
+</VirtualHost>
