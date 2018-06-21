@@ -1,0 +1,17 @@
+{
+  "id": "dbadminpass",
+  "root_password": {
+    "encrypted_data": "emBDYOMUZlmW7M/onmSFMOG/8KxGHKugzr9L\n",
+    "iv": "pe3uZY/eMwgTvRJY\n",
+    "auth_tag": "4bn5Dw5AXcpLxyuprzWv7A==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  },
+  "password": {
+    "encrypted_data": "9J/zYU7XCgTdQ33UzFcc4ORaoWaIOgUXqAC6Necm\n",
+    "iv": "o2XbCmaPwUPsmkUt\n",
+    "auth_tag": "bqrPl1PBUROdOZZWyJNnbQ==\n",
+    "version": 3,
+    "cipher": "aes-256-gcm"
+  }
+}
