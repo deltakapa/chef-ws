@@ -24,14 +24,15 @@ platforms:
 
 suites:
   - name: kitchen
-#    data_bags_path: test/fixtures/default/data_bags
-#    encrypted_data_bag_secret_key_path: ~/chef-dev-repo/.chef/encrypted_data_bag_secret
+    #data_bags_path: test/fixtures/default/data_bags
+    data_bags_path: /home/dimiak_/Dropbox/Training/chef/chef-dev-repo/data_bags
+    encrypted_data_bag_secret_key_path: ~/chef-dev-repo/.chef/encrypted_data_bag_secret
     run_list:
 #      - recipe[netdata::default]
-      - recipe[lamp::default]
-      - recipe[lamp::apache]
+#      - recipe[lamp::default]
+#      - recipe[lamp::apache]
 #      - recipe[lamp::apache-multi]
-#      - recipe[lamp::mysql]
+      - recipe[lamp::mysql]
     verifier:
       inspec_tests:
         - test/smoke/default

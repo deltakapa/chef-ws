@@ -7,5 +7,5 @@ default['lamp']['web']['site']['example1'] = { 'port' => '80',  'serveradmin' =>
 default['lamp']['web']['site']['example2'] = { 'port' => '80',  'serveradmin' => 'deltakapa@webmaster' }
 
 #DB Instance Definition
-default['lamp']['db']['instance'] = 'master'
-default['lamp']['db']['admin'] = 'dbadmin'
+default['lamp']['db']['dbname'] = 'master'
+default['lamp']['db']['admin_user'] = 'dbadmin'

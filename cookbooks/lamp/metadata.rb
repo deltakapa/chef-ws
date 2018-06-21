@@ -10,6 +10,9 @@ chef_version '>= 12.1' if respond_to?(:chef_version)
 # In order to load one cookbook from inside another is to reference it in your cook
 #depends 'mysql', '~> 6.0'
 #depends 'apache2'
+depends 'mysql'
+depends 'mysql2_chef_gem'
+depends 'database'
 
 # The `issues_url` points to the location where issues for this cookbook are
 # tracked.  A `View Issues` link will be displayed on this cookbook's page when
