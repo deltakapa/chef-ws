@@ -21,6 +21,14 @@ platforms:
       cpus: 2
       network:
         - ["private_network", {ip: "192.168.10.121"}]
+  - name: vm-02
+    driver:
+      box: bento/ubuntu-14.04
+      vm_hostname: "kitchen-vm-02"
+      memory: 1024
+      cpus: 2
+      network:
+        - ["private_network", {ip: "192.168.10.122"}]
 
 suites:
   - name: kitchen
@@ -29,8 +37,8 @@ suites:
     encrypted_data_bag_secret_key_path: ~/chef-dev-repo/.chef/encrypted_data_bag_secret
     run_list:
 #      - recipe[netdata::default]
-#      - recipe[lamp::default]
-#      - recipe[lamp::apache]
+      - recipe[lamp::default]
+      - recipe[lamp::apache]
 #      - recipe[lamp::apache-multi]
       - recipe[lamp::mysql]
     verifier:
