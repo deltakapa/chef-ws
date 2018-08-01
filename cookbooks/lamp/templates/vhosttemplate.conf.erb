@@ -7,11 +7,18 @@
           Options FollowSymLinks
           AllowOverride None
   </Directory>
+
   <Directory <%= node['lamp']['web']['document_root'] %> >
           Options Indexes FollowSymLinks MultiViews
           AllowOverride None
           Require all granted
   </Directory>
+
+  <Location /server/status>
+        SetHandler server-status
+        Order Allow,Deny
+        Allow from all
+  </Location>
 
   ErrorLog /var/log/apache2/error.log
 

@@ -10,32 +10,39 @@ directory node['lamp']['web']['document_root'] do
   recursive true
 end
 
-#Make a copy of apache.conf
+#Make a copy of apache.conf the first time, and skip block from running if bak file exists
 ruby_block "Rename file" do
   block do
     ::FileUtils.cp '/etc/apache2/apache2.conf', '/etc/apache2/apache2.conf.bak'
   end
+  not_if { ::File.exist?("/etc/apache2/apache2.conf.bak") }
 end
 
 #The action :nothing directive means the resource will wait to be called on. a2enmod enables specified mpm module. a2dismod disables specified mpm module. a2ensite enables specified site. a2dissite disables specified site.
 execute "enable-event" do
-  command "a2dismod mpm_prefork"
-  command "a2dismod mpm_work"
-  command "a2enmod mpm_event"
-  command "a2dissite 000-default"
-  command "a2ensite 001-site"
-  action :nothing
+command "a2dismod mpm_prefork"
+command "a2dismod mpm_work"
+command "a2enmod mpm_event"
+command "a2dissite 000-default"
+command "a2ensite 001-site"
+action :nothing
 end
 
 
-#Because the MPM needs to be re-enabled, after mpm_event file update, in order to use the new configuration option, we should use the notifies command again, to execute a2enmod mpm_event.
+#Because the MPM needs to be re-enabled, after mpm_event file update, in order to use the new configuration option, we should use the notifies command again, to execute a2enmod mpm_event. notifies command does notify Chef when things have changed, and only then runs the restart apache2 service.
 cookbook_file "/etc/apache2/mods-available/mpm_event.conf" do
   source "mpm_event.conf"
   mode "0644"
   notifies :run, "execute[enable-event]"
 end
 
-#Use the template create for apache.conf. notifies command does notify Chef when things have changed, and only then runs the restart apache2 service.
+#Use the template created for status.conf. Allow server-status to be accessible from 192.168.10.0/24 subnet.
+template '/etc/apache2/mods-available/status.conf' do
+  source 'modstatustemplate.conf.erb'
+  mode '0644'
+end
+
+#Use the template created for apache.conf.
 template '/etc/apache2/sites-available/001-site.conf' do
   source 'vhosttemplate.conf.erb'
   mode '0755'
